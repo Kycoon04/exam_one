@@ -1,19 +1,19 @@
 function handleElementPresence() {
-    const div = document.querySelector("rich-textarea .ql-editor");
-    div.innerHTML = '<p>hola</p>';
+    chrome.storage.local.get(["key"]).then((result) => {
+        const div = document.querySelector("rich-textarea .ql-editor");
+        div.innerHTML = `<p>${result.key}</p>`;
+    });
+}
+function handleElementPresenceClick() {
+    const button = document.querySelector(".send-button-container button");
+    button.click();
 }
 
 const observer = new MutationObserver(() => {
     if (document.querySelector("rich-textarea .ql-editor")) {
         observer.disconnect();
         handleElementPresence();
-        
-        // Agregar event listener al botón
-        const sendButton = document.querySelector(".send-button-container button");
-        sendButton.addEventListener("click", () => {
-            // Aquí puedes realizar las acciones que desees cuando se presione el botón
-            console.log("Se ha presionado el botón");
-        });
+        handleElementPresenceClick();
     }
 });
 
