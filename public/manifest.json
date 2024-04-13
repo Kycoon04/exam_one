@@ -1,24 +1,27 @@
 {
-    "name": "My Ty",
-    "version": "1.0.0",
-    "manifest_version": 3,
-    "action":{
-      "default_popup": "index.html"
-    },
-    "permissions": [
-      "scripting",
-      "tabs",
-      "activeTab",
-      "storage"
-    ],
-    "host_permissions": [
-      "http://*/*",
-      "https://*/*"
-    ],
-    "content_scripts": [
-      {
-        "matches": ["https://gemini.google.com/app", "https://chat.openai.com/"],
-        "js": ["content.js"]
-      }
-    ]
+  "name": "Ai-Generate LLM",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "action":{
+    "default_popup": "index.html"
+  },
+  "permissions": [
+    "scripting",
+    "tabs",
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "icons":{
+    "128": "logo.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://gemini.google.com/app", "https://chat.openai.com/"],
+      "js": ["content.js"]
+    }
+  ]
 }
