@@ -3,36 +3,36 @@ function handleElementPresence() {
         const { key, Agent } = result;
         if (Agent === "Gemini") {
             const div = document.querySelector("rich-textarea .ql-editor");
-            if (div) {
-                div.innerHTML = `<p>${key}</p>`;
-            }
+            div.innerHTML = `<p>${key}</p>`;
+
+            let event = new KeyboardEvent('keydown', {
+                key: 'Enter',
+                code: 'Enter',
+                which: 13,
+                keyCode: 13,
+              });
+            div.dispatchEvent(event);
+            let sendButton = document.querySelector('button.send-button[aria-label="Send message"]');
+            sendButton.click()
         }
         if (Agent === "ChatGPT") {
-            setTimeout(() => {
-                const textarea = document.querySelector("#prompt-textarea");
-                if (textarea) {
-                    textarea.value = key;
-                }
-            }, 1000);
+            let propmptTextArea = document.getElementById("prompt-textarea");
+            propmptTextArea.value = key;
+
+            let fakeInputEvent = new Event('input', { bubbles: true });
+            propmptTextArea.dispatchEvent(fakeInputEvent);
+
+            let sendButton = document.querySelector('button.absolute');
+            sendButton.click()
         }
     });
     chrome.storage.local.remove(["key", "Agent"]);
 }
 
-function handleElementPresenceClick() {
-    const button = document.querySelector(".send-button-container button");
-    const clickEvent = new Event('click', {
-        bubbles: true,
-        cancelable: true
-    });
-    button.dispatchEvent(clickEvent);
-}
-
 const observer = new MutationObserver(() => {
-    if (document.querySelector("#prompt-textarea") || document.querySelector("rich-textarea .ql-editor")) {
+    if (document.getElementById("prompt-textarea") || document.querySelector("rich-textarea .ql-editor")) {
         observer.disconnect();
         handleElementPresence();
-
     }
 });
 
