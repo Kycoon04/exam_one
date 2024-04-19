@@ -1,3 +1,5 @@
+import React from "react";
+
 export default  function agent(handleAgenClick: (value: string) => void) {
     return (
         <div>
